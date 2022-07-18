@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.75" prefHeight="642.0" prefWidth="959.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SoundPageController">
+   <children>
+      <MenuBar layoutY="2.0" prefHeight="26.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="saveButton" mnemonicParsing="false" text="Save" />
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </MenuBar>
+      <Label layoutX="74.0" layoutY="39.0" text="Список заметок:">
+         <font>
+            <Font name="Century Gothic" size="20.0" />
+         </font>
+      </Label>
+      <ListView fx:id="noteList" layoutX="14.0" layoutY="66.0" maxHeight="1.7976931348623157E308" maxWidth="500.0" prefHeight="325.0" prefWidth="300.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="65.0" />
+      <Slider fx:id="audioBar" layoutX="310.0" layoutY="557.0" prefHeight="14.0" prefWidth="622.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="0.0" />
+      <FlowPane alignment="TOP_CENTER" hgap="20.0" layoutX="310.0" layoutY="594.0" prefHeight="42.0" prefWidth="650.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button fx:id="stopButton" mnemonicParsing="false" onAction="#stopAudio">
+               <graphic>
+                  <ImageView fx:id="stopImage" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Lectures/resources/Images/stopButton.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+          <Button fx:id="playButton" mnemonicParsing="false">
+               <graphic>
+                  <ImageView fx:id="playImage" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Lectures/resources/Images/play_btn.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="volumeButton" mnemonicParsing="false">
+               <graphic>
+                  <ImageView fx:id="volumeImage" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Lectures/resources/Images/volume.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Slider fx:id="volumeSlider" max="1.0" prefHeight="14.0" prefWidth="98.0" />
+         </children>
+      </FlowPane>
+      <Label fx:id="timeLabel" layoutX="328.0" layoutY="528.0" text="0:00" AnchorPane.bottomAnchor="98.79999999999995" AnchorPane.leftAnchor="328.0" AnchorPane.rightAnchor="607.0">
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+      </Label>
+      <HBox layoutX="360.0" layoutY="65.0" prefHeight="63.0" prefWidth="549.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="49.39999999999998">
+         <children>
+            <TextField fx:id="noteArea" prefHeight="31.0" prefWidth="397.0" />
+            <Button fx:id="addButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="70.0" text="Добавить" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="70.0" text="Удалить" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
