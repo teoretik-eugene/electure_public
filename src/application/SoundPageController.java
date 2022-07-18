@@ -45,16 +45,16 @@ import javafx.util.Duration;
 public class SoundPageController implements Initializable, Serializable{
 	
 	/*
-	 * Поля страницы
+	 * РџРѕР»СЏ СЃС‚СЂР°РЅРёС†С‹
 	 */
 	private static final long serialVersionUID = 1L;
-	// Кнопка играть/ставить на паузу аудио
+	// РљРЅРѕРїРєР° РёРіСЂР°С‚СЊ/СЃС‚Р°РІРёС‚СЊ РЅР° РїР°СѓР·Сѓ Р°СѓРґРёРѕ
 	@FXML
 	private Button playButton;
-	// Кнопка останавливать аудио, выставить в начало
+	// РљРЅРѕРїРєР° РѕСЃС‚Р°РЅР°РІР»РёРІР°С‚СЊ Р°СѓРґРёРѕ, РІС‹СЃС‚Р°РІРёС‚СЊ РІ РЅР°С‡Р°Р»Рѕ
 	@FXML
 	private Button stopButton;
-	// Кнопка громкости
+	// РљРЅРѕРїРєР° РіСЂРѕРјРєРѕСЃС‚Рё
 	@FXML
 	private Button volumeButton;
 	
@@ -63,7 +63,7 @@ public class SoundPageController implements Initializable, Serializable{
 	
 	@FXML
 	private ListView<Note> noteList;
-	// Звуковая дорожка 
+	// Р—РІСѓРєРѕРІР°СЏ РґРѕСЂРѕР¶РєР° 
 	@FXML
 	private Slider audioBar;
 	
@@ -91,7 +91,7 @@ public class SoundPageController implements Initializable, Serializable{
 	@FXML
 	private MenuItem saveButton;
 	
-	/*	Обычные поля	*/
+	/*	РћР±С‹С‡РЅС‹Рµ РїРѕР»СЏ	*/
 	private Media media;
 	private MediaPlayer player;	
 	private File soundFile;
@@ -109,23 +109,23 @@ public class SoundPageController implements Initializable, Serializable{
 	private Note lastPeak;
 	
 	/*
-	 * Пусть создает файл name.lect
+	 * РџСѓСЃС‚СЊ СЃРѕР·РґР°РµС‚ С„Р°Р№Р» name.lect
 	 */
 	
-	/*Инициализация данных*/
+	/*РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РґР°РЅРЅС‹С…*/
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		System.out.println("init");
-		/*Если такой файл существует, то загружаем данные*/
+		/*Р•СЃР»Рё С‚Р°РєРѕР№ С„Р°Р№Р» СЃСѓС‰РµСЃС‚РІСѓРµС‚, С‚Рѕ Р·Р°РіСЂСѓР¶Р°РµРј РґР°РЅРЅС‹Рµ*/
 		volumeSlider.setValue(1);
 		audioBar.setValue(0);
-		isPlaying = false;				// Файл не воспроизводится автоматически
-		endOfAudio = false;				// Конец файла еще не настал
-		isMuted = false;		// Звук не отключен
+		isPlaying = false;				// Р¤Р°Р№Р» РЅРµ РІРѕСЃРїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё
+		endOfAudio = false;				// РљРѕРЅРµС† С„Р°Р№Р»Р° РµС‰Рµ РЅРµ РЅР°СЃС‚Р°Р»
+		isMuted = false;		// Р—РІСѓРє РЅРµ РѕС‚РєР»СЋС‡РµРЅ
 		lastVolume = 1;
 		
-		/*Создадим Cell Factory
-		 * Разобраться как это работает*/
+		/*РЎРѕР·РґР°РґРёРј Cell Factory
+		 * Р Р°Р·РѕР±СЂР°С‚СЊСЃСЏ РєР°Рє СЌС‚Рѕ СЂР°Р±РѕС‚Р°РµС‚*/
 		noteList.setCellFactory(new Callback<ListView<Note>, ListCell<Note>>() {
 
 			@Override
@@ -145,7 +145,7 @@ public class SoundPageController implements Initializable, Serializable{
 			}
 		});
 		
-		/*Обработчик для заметок*/
+		/*РћР±СЂР°Р±РѕС‚С‡РёРє РґР»СЏ Р·Р°РјРµС‚РѕРє*/
 		noteList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Note>() {
 
 			@Override
@@ -177,7 +177,7 @@ public class SoundPageController implements Initializable, Serializable{
 						if(noteList.getItems().size() == 0)
 							return;
 						System.out.println("Click 2 times");
-						double current = lastPeak.getTimePos().toSeconds();		// Получили позицию
+						double current = lastPeak.getTimePos().toSeconds();		// РџРѕР»СѓС‡РёР»Рё РїРѕР·РёС†РёСЋ
 						player.seek(Duration.seconds(current));
 					}
 				}
@@ -187,54 +187,54 @@ public class SoundPageController implements Initializable, Serializable{
 		});
 	}
 	
-	/* Метод для загрузки прослушиваемого файла*/
+	/* РњРµС‚РѕРґ РґР»СЏ Р·Р°РіСЂСѓР·РєРё РїСЂРѕСЃР»СѓС€РёРІР°РµРјРѕРіРѕ С„Р°Р№Р»Р°*/
 	public void setSoundFile(File soundFile, File dir) throws IOException {
 		
-		System.out.println("==meth==");		// Вызвался метод
-		this.soundFile = soundFile;		// Указываем переданный файл
+		System.out.println("==meth==");		// Р’С‹Р·РІР°Р»СЃСЏ РјРµС‚РѕРґ
+		this.soundFile = soundFile;		// РЈРєР°Р·С‹РІР°РµРј РїРµСЂРµРґР°РЅРЅС‹Р№ С„Р°Р№Р»
 		//System.out.println("this: " + this.soundFile);
 		this.dir = dir;
 		media = new Media(soundFile.toURI().toString());
-		player = new MediaPlayer(media);			// Загружаем MediaPlayer
-		/* Создание файла сохранения */
+		player = new MediaPlayer(media);			// Р—Р°РіСЂСѓР¶Р°РµРј MediaPlayer
+		/* РЎРѕР·РґР°РЅРёРµ С„Р°Р№Р»Р° СЃРѕС…СЂР°РЅРµРЅРёСЏ */
 		System.out.println("Check save:\n" + savedFile);
-		if(savedFile == null) {				// Если нет ссылки на сохраненный файл
-			// Создание файла, который будем сериализовывать
+		if(savedFile == null) {				// Р•СЃР»Рё РЅРµС‚ СЃСЃС‹Р»РєРё РЅР° СЃРѕС…СЂР°РЅРµРЅРЅС‹Р№ С„Р°Р№Р»
+			// РЎРѕР·РґР°РЅРёРµ С„Р°Р№Р»Р°, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµРј СЃРµСЂРёР°Р»РёР·РѕРІС‹РІР°С‚СЊ
 			System.out.println("Creating new File");
-			savedFile = new NoteData();	// Файл сохранения ссылается на аудио
+			savedFile = new NoteData();	// Р¤Р°Р№Р» СЃРѕС…СЂР°РЅРµРЅРёСЏ СЃСЃС‹Р»Р°РµС‚СЃСЏ РЅР° Р°СѓРґРёРѕ
 			
-			// Создаем путь для .lect файла
+			// РЎРѕР·РґР°РµРј РїСѓС‚СЊ РґР»СЏ .lect С„Р°Р№Р»Р°
 			lectFile = new File(dir.toString() + "\\" + 
 					soundFile.getName().substring(0, soundFile.getName().length() - 4) + ".lect");
-			lectFile.createNewFile();		// Создаем файл
+			lectFile.createNewFile();		// РЎРѕР·РґР°РµРј С„Р°Р№Р»
 			
-			// Создание выходного потока, а как следствие создание выходного файла
+			// РЎРѕР·РґР°РЅРёРµ РІС‹С…РѕРґРЅРѕРіРѕ РїРѕС‚РѕРєР°, Р° РєР°Рє СЃР»РµРґСЃС‚РІРёРµ СЃРѕР·РґР°РЅРёРµ РІС‹С…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°
 			/*
-			 * Есть проблема, при создании ObjectOutputStream в файл записывается 
-			 * нечитаемый символ
+			 * Р•СЃС‚СЊ РїСЂРѕР±Р»РµРјР°, РїСЂРё СЃРѕР·РґР°РЅРёРё ObjectOutputStream РІ С„Р°Р№Р» Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ 
+			 * РЅРµС‡РёС‚Р°РµРјС‹Р№ СЃРёРјРІРѕР»
 			 */
 			outputStream = new ObjectOutputStream(new FileOutputStream(lectFile));
 			savedFile.load(soundFile, dir, lastVolume, player.getCurrentTime(), noteList.getItems());
 			outputStream.writeObject(savedFile);
 		}
-		/*Если сохраненный файл присутствует*/
+		/*Р•СЃР»Рё СЃРѕС…СЂР°РЅРµРЅРЅС‹Р№ С„Р°Р№Р» РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚*/
 		else {
 			System.out.println("Already exist");
-			// Загружаем заметки
+			// Р—Р°РіСЂСѓР¶Р°РµРј Р·Р°РјРµС‚РєРё
 			noteList.getItems().addAll(savedFile.getNotes());
-			// Ставим установленную громкость
+			// РЎС‚Р°РІРёРј СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅСѓСЋ РіСЂРѕРјРєРѕСЃС‚СЊ
 			volumeSlider.setValue(savedFile.getVolumeValue());
-			// Ставим позицию по времени
+			// РЎС‚Р°РІРёРј РїРѕР·РёС†РёСЋ РїРѕ РІСЂРµРјРµРЅРё
 			//audioBar.setValue(savedFile.getDuration().toSeconds());
 			
 			//outputStream = new ObjectOutputStream(new FileOutputStream(lectFile));
 			//outputStream.writeObject(savedFile);
 		}
 		
-		/*Установить связь со звуком*/
+		/*РЈСЃС‚Р°РЅРѕРІРёС‚СЊ СЃРІСЏР·СЊ СЃРѕ Р·РІСѓРєРѕРј*/
 		player.volumeProperty().bindBidirectional(volumeSlider.valueProperty());
 		
-		// Устанавливает показ тайм-кода
+		// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РїРѕРєР°Р· С‚Р°Р№Рј-РєРѕРґР°
 		bindCurrentTimeLabel();
 		
 		player.setOnReady(new Runnable() {
@@ -244,17 +244,17 @@ public class SoundPageController implements Initializable, Serializable{
 				duration = media.getDuration().toSeconds();
 				audioBar.setMax(duration);
 				
-				/*Движения ползунка времени*/
+				/*Р”РІРёР¶РµРЅРёСЏ РїРѕР»Р·СѓРЅРєР° РІСЂРµРјРµРЅРё*/
 				player.currentTimeProperty().addListener(ev ->{
 					if(!audioBar.isValueChanging()) {
 						double current = player.getCurrentTime().toSeconds();
 						System.out.println(current);
 						audioBar.setValue(current);
-						// Если пришел конец вопроизведения
+						// Р•СЃР»Рё РїСЂРёС€РµР» РєРѕРЅРµС† РІРѕРїСЂРѕРёР·РІРµРґРµРЅРёСЏ
 					}
 				});
 				
-				/*Перемещение ползунка времени*/
+				/*РџРµСЂРµРјРµС‰РµРЅРёРµ РїРѕР»Р·СѓРЅРєР° РІСЂРµРјРµРЅРё*/
 				audioBar.valueProperty().addListener(new ChangeListener<Number>() {
 					@Override
 					public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
@@ -268,7 +268,7 @@ public class SoundPageController implements Initializable, Serializable{
 			}
 		});
 		
-		/*Конец медиа*/
+		/*РљРѕРЅРµС† РјРµРґРёР°*/
 		player.setOnEndOfMedia(new Runnable() {
 			
 			@Override
@@ -283,7 +283,7 @@ public class SoundPageController implements Initializable, Serializable{
 		});
 	}
 	
-	/*Связывает Label и время проигрывания*/
+	/*РЎРІСЏР·С‹РІР°РµС‚ Label Рё РІСЂРµРјСЏ РїСЂРѕРёРіСЂС‹РІР°РЅРёСЏ*/
 	private void bindCurrentTimeLabel() {
 		timeLabel.textProperty().bind(Bindings.createStringBinding(new Callable<String>() {
 			@Override
@@ -295,11 +295,11 @@ public class SoundPageController implements Initializable, Serializable{
 	
 	/*NoteData*/
 	public void setNoteData(NoteData inputData, File openedFile) {
-		savedFile = inputData;		// inputData - это класс сохранения
-		lectFile = openedFile;		// openedFile - это файл типа .lect
+		savedFile = inputData;		// inputData - СЌС‚Рѕ РєР»Р°СЃСЃ СЃРѕС…СЂР°РЅРµРЅРёСЏ
+		lectFile = openedFile;		// openedFile - СЌС‚Рѕ С„Р°Р№Р» С‚РёРїР° .lect
 	}
 	
-	/*Метод проигрывания/паузы файла*/
+	/*РњРµС‚РѕРґ РїСЂРѕРёРіСЂС‹РІР°РЅРёСЏ/РїР°СѓР·С‹ С„Р°Р№Р»Р°*/
 	public void playAudio(ActionEvent event) {
 		if(isPlaying) {
 			isPlaying = false;
@@ -311,13 +311,13 @@ public class SoundPageController implements Initializable, Serializable{
 		}
 	}
 	
-	/*Метод остановки*/
+	/*РњРµС‚РѕРґ РѕСЃС‚Р°РЅРѕРІРєРё*/
 	public void stopAudio(ActionEvent event) {
 		player.stop();
 		isPlaying = false;
 	}
 	
-	/*Выключить/включить звук*/
+	/*Р’С‹РєР»СЋС‡РёС‚СЊ/РІРєР»СЋС‡РёС‚СЊ Р·РІСѓРє*/
 	public void muteVolume(ActionEvent event) {
 		if(isMuted) {
 			volumeSlider.setValue(lastVolume);
@@ -330,7 +330,7 @@ public class SoundPageController implements Initializable, Serializable{
 		}
 	}
 	
-	/*Остановка по пробелу*/
+	/*РћСЃС‚Р°РЅРѕРІРєР° РїРѕ РїСЂРѕР±РµР»Сѓ*/
 	public void spaceStop(KeyEvent event) {
 		if(event.getCode() == KeyCode.SPACE) {
 			if(isPlaying) {
@@ -344,7 +344,7 @@ public class SoundPageController implements Initializable, Serializable{
 		}
 	}
 	
-	/*Метод форматирования времени из секунд в нормальное время*/
+	/*РњРµС‚РѕРґ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРёСЏ РІСЂРµРјРµРЅРё РёР· СЃРµРєСѓРЅРґ РІ РЅРѕСЂРјР°Р»СЊРЅРѕРµ РІСЂРµРјСЏ*/
 	private String formatTime(int seconds) {
 		
 		int sec = seconds % 60;
@@ -377,7 +377,7 @@ public class SoundPageController implements Initializable, Serializable{
 		return result;
 	}
 	
-	/*Методы, относящиеся к заметкам*/
+	/*РњРµС‚РѕРґС‹, РѕС‚РЅРѕСЃСЏС‰РёРµСЃСЏ Рє Р·Р°РјРµС‚РєР°Рј*/
 	public void addNote(ActionEvent event) {
 		if(!noteArea.getText().trim().isEmpty()) {
 			Note note = new Note();
@@ -391,7 +391,7 @@ public class SoundPageController implements Initializable, Serializable{
 			System.out.println("Enter again please");
 	}
 	
-	/*Удалить заметку*/
+	/*РЈРґР°Р»РёС‚СЊ Р·Р°РјРµС‚РєСѓ*/
 	public void deleteNote(ActionEvent event) {
 		noteList.getItems().remove(lastPeak);
 	}
@@ -400,7 +400,7 @@ public class SoundPageController implements Initializable, Serializable{
 		savedFile.load(soundFile, dir, volumeSlider.getValue(),
 				player.getCurrentTime(), noteList.getItems());
 		
-		// Это со Stack-Overflow, чтобы очистить файл и записать по-новому
+		// Р­С‚Рѕ СЃРѕ Stack-Overflow, С‡С‚РѕР±С‹ РѕС‡РёСЃС‚РёС‚СЊ С„Р°Р№Р» Рё Р·Р°РїРёСЃР°С‚СЊ РїРѕ-РЅРѕРІРѕРјСѓ
 		//Files.newInputStream(Paths.get(lectFile.toURI()), StandardOpenOption.TRUNCATE_EXISTING);
 		
 		outputStream = new ObjectOutputStream(new FileOutputStream(lectFile));
